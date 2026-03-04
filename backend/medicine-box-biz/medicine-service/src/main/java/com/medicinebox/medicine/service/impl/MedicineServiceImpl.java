@@ -180,8 +180,8 @@ public class MedicineServiceImpl implements MedicineService {
         if (medicine.getDosageForm() != null) {
             existingMedicine.setDosageForm(medicine.getDosageForm());
         }
-        if (medicine.getUsage() != null) {
-            existingMedicine.setUsage(medicine.getUsage());
+        if (medicine.getUsageInstructions() != null) {
+            existingMedicine.setUsageInstructions(medicine.getUsageInstructions());
         }
         if (medicine.getIndications() != null) {
             existingMedicine.setIndications(medicine.getIndications());
