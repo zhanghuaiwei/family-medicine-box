@@ -15,7 +15,7 @@
     <artifactId>medicine-box-parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>Medicine Box Parent</name>
+    <name>medicine-box-parent</name>
     <description>家庭药箱管理系统</description>
 
     <properties>

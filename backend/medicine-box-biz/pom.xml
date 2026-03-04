@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>medicine-box-biz</artifactId>
-    <name>Medicine Box Biz</name>
+    <name>medicine-box-biz</name>
     <description>家庭药箱管理系统业务逻辑模块</description>
     <packaging>pom</packaging>
 

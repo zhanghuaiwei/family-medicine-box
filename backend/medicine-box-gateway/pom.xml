@@ -11,7 +11,7 @@
     </parent>
 
     <artifactId>medicine-box-gateway</artifactId>
-    <name>Medicine Box Gateway</name>
+    <name>medicine-box-gateway</name>
     <description>家庭药箱管理系统网关服务</description>
 
     <dependencies>

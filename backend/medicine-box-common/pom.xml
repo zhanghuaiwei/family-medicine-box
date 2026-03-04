@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>medicine-box-common</artifactId>
-    <name>Medicine Box Common</name>
+    <name>medicine-box-common</name>
     <description>家庭药箱管理系统公共组件</description>
 
     <dependencies>

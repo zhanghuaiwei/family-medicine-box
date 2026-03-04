@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>medicine-box-utils</artifactId>
-    <name>Medicine Box Utils</name>
+    <name>medicine-box-utils</name>
     <description>家庭药箱管理系统工具类</description>
 
     <dependencies>

@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>inventory-service</artifactId>
-    <name>Inventory Service</name>
+    <name>inventory-service</name>
     <description>库存管理服务</description>
 
     <dependencies>
