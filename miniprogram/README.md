@@ -111,11 +111,15 @@ pnpm test
 4. **查看库存**: 在"库存管理"页面查看所有药品的库存状态
 5. **接收提醒**: 开启消息通知，及时接收低库存和过期提醒
 
-## 📞 联系方式
+## 📞 项目维护团队
 
-- 项目维护者: 开发团队
-- 邮箱: contact@medicinebox.com
-- 版本: 1.0.0
+- **项目维护者**: [zhanghuaiwei](https://github.com/zhanghuaiwei)
+- **邮箱**: 947201280@qq.com
+
+---
+
+- **项目维护者**: [hddwsz](https://github.com/hddwsz)
+- **邮箱**: hddwsz@163.com
 
 ---
 

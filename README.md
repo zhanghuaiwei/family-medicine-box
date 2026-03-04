@@ -166,12 +166,16 @@ pnpm build
 6. **紧急求助**: 一键求助功能，应对突发情况
 7. **多语言支持**: 支持中英文切换，方便国际化用户
 
-## 📞 联系方式
+## 📞 项目维护团队
 
-- **项目维护者**: 开发团队
-- **邮箱**: contact@medicinebox.com
-- **版本**: 1.0.0
+- **项目维护者**: [zhanghuaiwei](https://github.com/zhanghuaiwei)
+- **邮箱**: 947201280@qq.com
 
+---
+
+- **项目维护者**: [hddwsz](https://github.com/hddwsz)
+- **邮箱**: hddwsz@163.com
+  
 ## 📄 开源协议
 
 本项目采用 MIT 开源协议，详见 [LICENSE](LICENSE) 文件。

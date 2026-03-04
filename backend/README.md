@@ -134,11 +134,15 @@ mvn test
 http://localhost:8080/swagger-ui.html
 ```
 
-## 📞 联系方式
+## 📞 项目维护团队
 
-- 项目维护者: 开发团队
-- 邮箱: contact@medicinebox.com
-- 版本: 1.0.0
+- **项目维护者**: [zhanghuaiwei](https://github.com/zhanghuaiwei)
+- **邮箱**: 947201280@qq.com
+
+---
+
+- **项目维护者**: [hddwsz](https://github.com/hddwsz)
+- **邮箱**: hddwsz@163.com
 
 ---
 
