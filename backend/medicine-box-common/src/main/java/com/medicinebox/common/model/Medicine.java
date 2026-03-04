@@ -38,7 +38,7 @@ public class Medicine extends BaseModel {
     /**
      * 用法用量
      */
-    private String usage;
+    private String usageInstructions;
 
     /**
      * 适应症

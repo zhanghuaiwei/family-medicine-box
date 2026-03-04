@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS medicines (
     brand VARCHAR(100),
     specification VARCHAR(100) NOT NULL,
     dosage_form VARCHAR(50),
-    usage TEXT,
+    usage_instructions TEXT,
     indications TEXT,
     contraindications TEXT,
     side_effects TEXT,
