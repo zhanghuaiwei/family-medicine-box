@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * 用户服务实现类
@@ -146,7 +147,7 @@ public class UserServiceImpl implements UserService {
     public List<User> getAllUsers(Integer deleted) {
         return userRepository.findAll().stream()
                 .filter(user -> user.getDeleted().equals(deleted))
-                .toList();
+                .collect(Collectors.toList());
     }
 
     /**

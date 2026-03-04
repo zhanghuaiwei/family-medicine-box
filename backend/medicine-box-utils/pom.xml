@@ -23,11 +23,7 @@
             <artifactId>medicine-box-common</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <groupId>java-uuid-generator</groupId>
-            <artifactId>java-uuid-generator</artifactId>
-            <version>4.0.1</version>
-        </dependency>
+
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>

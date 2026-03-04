@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * 药品服务实现类
@@ -100,7 +101,7 @@ public class MedicineServiceImpl implements MedicineService {
     public List<MedicineCategory> getAllCategories(Integer deleted) {
         return medicineCategoryRepository.findAll().stream()
                 .filter(category -> category.getDeleted().equals(deleted))
-                .toList();
+                .collect(Collectors.toList());
     }
 
     /**
@@ -240,7 +241,7 @@ public class MedicineServiceImpl implements MedicineService {
     public List<Medicine> getAllMedicines(Integer deleted) {
         return medicineRepository.findAll().stream()
                 .filter(medicine -> medicine.getDeleted().equals(deleted))
-                .toList();
+                .collect(Collectors.toList());
     }
 
     /**
