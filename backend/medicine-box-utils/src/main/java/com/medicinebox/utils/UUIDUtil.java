@@ -1,7 +1,5 @@
 package com.medicinebox.utils;
 
-import com.fasterxml.uuid.Generators;
-
 import java.util.UUID;
 
 /**
@@ -14,7 +12,7 @@ public class UUIDUtil {
      * @return UUID字符串
      */
     public static String generateUUID() {
-        UUID uuid = Generators.timeBasedGenerator().generate();
+        UUID uuid = UUID.randomUUID();
         return uuid.toString().replace("-", "");
     }
 
@@ -23,7 +21,7 @@ public class UUIDUtil {
      * @return 带连字符的UUID字符串
      */
     public static String generateUUIDWithHyphen() {
-        UUID uuid = Generators.timeBasedGenerator().generate();
+        UUID uuid = UUID.randomUUID();
         return uuid.toString();
     }
 
