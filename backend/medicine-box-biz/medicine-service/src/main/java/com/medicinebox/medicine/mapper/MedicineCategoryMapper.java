@@ -1,22 +1,20 @@
-package com.medicinebox.medicine.repository;
+package com.medicinebox.medicine.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.medicinebox.common.model.MedicineCategory;
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import java.util.List;
-import java.util.Optional;
 
 /**
- * 药品分类Repository接口
+ * 药品分类Mapper接口
  */
-public interface MedicineCategoryRepository extends JpaRepository<MedicineCategory, String> {
+public interface MedicineCategoryMapper extends BaseMapper<MedicineCategory> {
 
     /**
      * 根据分类名称查询分类
      * @param categoryName 分类名称
      * @return 分类信息
      */
-    Optional<MedicineCategory> findByCategoryName(String categoryName);
+    MedicineCategory findByCategoryName(String categoryName);
 
     /**
      * 根据父分类ID查询子分类

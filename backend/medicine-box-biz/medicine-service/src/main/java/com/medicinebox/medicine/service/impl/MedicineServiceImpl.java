@@ -1,9 +1,10 @@
 package com.medicinebox.medicine.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.medicinebox.common.model.Medicine;
 import com.medicinebox.common.model.MedicineCategory;
-import com.medicinebox.medicine.repository.MedicineCategoryRepository;
-import com.medicinebox.medicine.repository.MedicineRepository;
+import com.medicinebox.medicine.mapper.MedicineCategoryMapper;
+import com.medicinebox.medicine.mapper.MedicineMapper;
 import com.medicinebox.medicine.service.MedicineService;
 import com.medicinebox.utils.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * 药品服务实现类
@@ -22,10 +22,10 @@ import java.util.stream.Collectors;
 public class MedicineServiceImpl implements MedicineService {
 
     @Autowired
-    private MedicineCategoryRepository medicineCategoryRepository;
+    private MedicineCategoryMapper medicineCategoryMapper;
 
     @Autowired
-    private MedicineRepository medicineRepository;
+    private MedicineMapper medicineMapper;
 
     // 药品分类相关方法
     /**
@@ -41,7 +41,8 @@ public class MedicineServiceImpl implements MedicineService {
         // 设置默认值
         category.setDeleted(0); // 默认未删除
         category.setCreateTime(new Date());
-        return medicineCategoryRepository.save(category);
+        medicineCategoryMapper.insert(category);
+        return category;
     }
 
     /**
@@ -51,7 +52,8 @@ public class MedicineServiceImpl implements MedicineService {
      */
     @Override
     public Optional<MedicineCategory> getCategoryById(String id) {
-        return medicineCategoryRepository.findById(id);
+        MedicineCategory category = medicineCategoryMapper.selectById(id);
+        return Optional.ofNullable(category);
     }
 
     /**
@@ -62,8 +64,10 @@ public class MedicineServiceImpl implements MedicineService {
     @Override
     @Transactional
     public MedicineCategory updateCategory(MedicineCategory category) {
-        MedicineCategory existingCategory = medicineCategoryRepository.findById(category.getId())
-                .orElseThrow(() -> new RuntimeException("分类不存在"));
+        MedicineCategory existingCategory = medicineCategoryMapper.selectById(category.getId());
+        if (existingCategory == null) {
+            throw new RuntimeException("分类不存在");
+        }
         
         // 更新非空字段
         if (category.getCategoryName() != null) {
@@ -76,7 +80,8 @@ public class MedicineServiceImpl implements MedicineService {
             existingCategory.setDescription(category.getDescription());
         }
         
-        return medicineCategoryRepository.save(existingCategory);
+        medicineCategoryMapper.updateById(existingCategory);
+        return existingCategory;
     }
 
     /**
@@ -86,10 +91,12 @@ public class MedicineServiceImpl implements MedicineService {
     @Override
     @Transactional
     public void deleteCategory(String id) {
-        MedicineCategory category = medicineCategoryRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("分类不存在"));
+        MedicineCategory category = medicineCategoryMapper.selectById(id);
+        if (category == null) {
+            throw new RuntimeException("分类不存在");
+        }
         category.setDeleted(1);
-        medicineCategoryRepository.save(category);
+        medicineCategoryMapper.updateById(category);
     }
 
     /**
@@ -99,9 +106,9 @@ public class MedicineServiceImpl implements MedicineService {
      */
     @Override
     public List<MedicineCategory> getAllCategories(Integer deleted) {
-        return medicineCategoryRepository.findAll().stream()
-                .filter(category -> category.getDeleted().equals(deleted))
-                .collect(Collectors.toList());
+        QueryWrapper<MedicineCategory> wrapper = new QueryWrapper<>();
+        wrapper.eq("deleted", deleted);
+        return medicineCategoryMapper.selectList(wrapper);
     }
 
     /**
@@ -111,7 +118,7 @@ public class MedicineServiceImpl implements MedicineService {
      */
     @Override
     public List<MedicineCategory> getSubCategories(String parentId) {
-        return medicineCategoryRepository.findByParentId(parentId);
+        return medicineCategoryMapper.findByParentId(parentId);
     }
 
     // 药品相关方法
@@ -130,7 +137,8 @@ public class MedicineServiceImpl implements MedicineService {
         medicine.setDeleted(0); // 默认未删除
         medicine.setCreateTime(new Date());
         medicine.setUpdateTime(new Date());
-        return medicineRepository.save(medicine);
+        medicineMapper.insert(medicine);
+        return medicine;
     }
 
     /**
@@ -140,7 +148,8 @@ public class MedicineServiceImpl implements MedicineService {
      */
     @Override
     public Optional<Medicine> getMedicineById(String id) {
-        return medicineRepository.findById(id);
+        Medicine medicine = medicineMapper.selectById(id);
+        return Optional.ofNullable(medicine);
     }
 
     /**
@@ -150,7 +159,8 @@ public class MedicineServiceImpl implements MedicineService {
      */
     @Override
     public Optional<Medicine> getMedicineByBarcode(String barcode) {
-        return medicineRepository.findByBarcode(barcode);
+        Medicine medicine = medicineMapper.findByBarcode(barcode);
+        return Optional.ofNullable(medicine);
     }
 
     /**
@@ -161,8 +171,10 @@ public class MedicineServiceImpl implements MedicineService {
     @Override
     @Transactional
     public Medicine updateMedicine(Medicine medicine) {
-        Medicine existingMedicine = medicineRepository.findById(medicine.getId())
-                .orElseThrow(() -> new RuntimeException("药品不存在"));
+        Medicine existingMedicine = medicineMapper.selectById(medicine.getId());
+        if (existingMedicine == null) {
+            throw new RuntimeException("药品不存在");
+        }
         
         // 更新非空字段
         if (medicine.getName() != null) {
@@ -215,7 +227,8 @@ public class MedicineServiceImpl implements MedicineService {
         }
         
         existingMedicine.setUpdateTime(new Date());
-        return medicineRepository.save(existingMedicine);
+        medicineMapper.updateById(existingMedicine);
+        return existingMedicine;
     }
 
     /**
@@ -225,11 +238,13 @@ public class MedicineServiceImpl implements MedicineService {
     @Override
     @Transactional
     public void deleteMedicine(String id) {
-        Medicine medicine = medicineRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("药品不存在"));
+        Medicine medicine = medicineMapper.selectById(id);
+        if (medicine == null) {
+            throw new RuntimeException("药品不存在");
+        }
         medicine.setDeleted(1);
         medicine.setUpdateTime(new Date());
-        medicineRepository.save(medicine);
+        medicineMapper.updateById(medicine);
     }
 
     /**
@@ -239,9 +254,9 @@ public class MedicineServiceImpl implements MedicineService {
      */
     @Override
     public List<Medicine> getAllMedicines(Integer deleted) {
-        return medicineRepository.findAll().stream()
-                .filter(medicine -> medicine.getDeleted().equals(deleted))
-                .collect(Collectors.toList());
+        QueryWrapper<Medicine> wrapper = new QueryWrapper<>();
+        wrapper.eq("deleted", deleted);
+        return medicineMapper.selectList(wrapper);
     }
 
     /**
@@ -251,7 +266,7 @@ public class MedicineServiceImpl implements MedicineService {
      */
     @Override
     public List<Medicine> getMedicinesByCategoryId(String categoryId) {
-        return medicineRepository.findByCategoryId(categoryId);
+        return medicineMapper.findByCategoryId(categoryId);
     }
 
     /**
@@ -261,6 +276,6 @@ public class MedicineServiceImpl implements MedicineService {
      */
     @Override
     public List<Medicine> getMedicinesByStatus(Integer status) {
-        return medicineRepository.findByStatus(status);
+        return medicineMapper.findByStatus(status);
     }
 }

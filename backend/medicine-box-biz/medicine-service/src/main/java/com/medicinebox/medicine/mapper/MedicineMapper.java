@@ -1,22 +1,20 @@
-package com.medicinebox.medicine.repository;
+package com.medicinebox.medicine.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.medicinebox.common.model.Medicine;
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import java.util.List;
-import java.util.Optional;
 
 /**
- * 药品Repository接口
+ * 药品Mapper接口
  */
-public interface MedicineRepository extends JpaRepository<Medicine, String> {
+public interface MedicineMapper extends BaseMapper<Medicine> {
 
     /**
      * 根据药品名称查询药品
      * @param name 药品名称
      * @return 药品信息
      */
-    Optional<Medicine> findByName(String name);
+    Medicine findByName(String name);
 
     /**
      * 根据分类ID查询药品
@@ -30,7 +28,7 @@ public interface MedicineRepository extends JpaRepository<Medicine, String> {
      * @param barcode 条形码
      * @return 药品信息
      */
-    Optional<Medicine> findByBarcode(String barcode);
+    Medicine findByBarcode(String barcode);
 
     /**
      * 根据状态查询药品

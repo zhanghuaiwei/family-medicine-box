@@ -1,18 +1,15 @@
 package com.medicinebox.common.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import java.util.Date;
 
 /**
- * 用药记录模型
+ * 用药记录模型类
  */
 @Data
-public class UsageRecord {
-    /**
-     * 记录ID（UUID）
-     */
-    private String id;
-
+@EqualsAndHashCode(callSuper = true)
+public class UsageRecord extends BaseModel {
     /**
      * 用户ID
      */
@@ -37,9 +34,4 @@ public class UsageRecord {
      * 备注
      */
     private String notes;
-
-    /**
-     * 创建时间
-     */
-    private Date createTime;
 }

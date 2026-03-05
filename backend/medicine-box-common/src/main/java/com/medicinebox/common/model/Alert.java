@@ -1,18 +1,15 @@
 package com.medicinebox.common.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import java.util.Date;
 
 /**
  * 报警模型
  */
 @Data
-public class Alert {
-    /**
-     * 报警ID（UUID）
-     */
-    private String id;
-
+@EqualsAndHashCode(callSuper = true)
+public class Alert extends BaseModel {
     /**
      * 用户ID
      */
@@ -52,9 +49,4 @@ public class Alert {
      * 解决时间
      */
     private Date resolveTime;
-
-    /**
-     * 创建时间
-     */
-    private Date createTime;
 }

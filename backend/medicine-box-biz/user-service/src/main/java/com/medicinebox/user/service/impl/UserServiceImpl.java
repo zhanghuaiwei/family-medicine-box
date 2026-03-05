@@ -1,7 +1,8 @@
 package com.medicinebox.user.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.medicinebox.common.model.User;
-import com.medicinebox.user.repository.UserRepository;
+import com.medicinebox.user.mapper.UserMapper;
 import com.medicinebox.user.service.UserService;
 import com.medicinebox.utils.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserMapper userMapper;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -44,7 +45,8 @@ public class UserServiceImpl implements UserService {
         user.setDeleted(0); // 默认未删除
         user.setCreateTime(new Date());
         user.setUpdateTime(new Date());
-        return userRepository.save(user);
+        userMapper.insert(user);
+        return user;
     }
 
     /**
@@ -54,7 +56,8 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public Optional<User> getUserById(String id) {
-        return userRepository.findById(id);
+        User user = userMapper.selectById(id);
+        return Optional.ofNullable(user);
     }
 
     /**
@@ -64,7 +67,8 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public Optional<User> getUserByPhone(String phone) {
-        return userRepository.findByPhone(phone);
+        User user = userMapper.findByPhone(phone);
+        return Optional.ofNullable(user);
     }
 
     /**
@@ -74,7 +78,8 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public Optional<User> getUserByEmail(String email) {
-        return userRepository.findByEmail(email);
+        User user = userMapper.findByEmail(email);
+        return Optional.ofNullable(user);
     }
 
     /**
@@ -85,8 +90,10 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public User updateUser(User user) {
-        User existingUser = userRepository.findById(user.getId())
-                .orElseThrow(() -> new RuntimeException("用户不存在"));
+        User existingUser = userMapper.selectById(user.getId());
+        if (existingUser == null) {
+            throw new RuntimeException("用户不存在");
+        }
         
         // 更新非空字段
         if (user.getUsername() != null) {
@@ -121,7 +128,8 @@ public class UserServiceImpl implements UserService {
         }
         
         existingUser.setUpdateTime(new Date());
-        return userRepository.save(existingUser);
+        userMapper.updateById(existingUser);
+        return existingUser;
     }
 
     /**
@@ -131,11 +139,13 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void deleteUser(String id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("用户不存在"));
+        User user = userMapper.selectById(id);
+        if (user == null) {
+            throw new RuntimeException("用户不存在");
+        }
         user.setDeleted(1);
         user.setUpdateTime(new Date());
-        userRepository.save(user);
+        userMapper.updateById(user);
     }
 
     /**
@@ -145,9 +155,9 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public List<User> getAllUsers(Integer deleted) {
-        return userRepository.findAll().stream()
-                .filter(user -> user.getDeleted().equals(deleted))
-                .collect(Collectors.toList());
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("deleted", deleted);
+        return userMapper.selectList(wrapper);
     }
 
     /**
@@ -159,8 +169,13 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public User login(String phone, String password) {
-        User user = userRepository.findByPhoneAndStatus(phone, 1)
-                .orElseThrow(() -> new RuntimeException("用户不存在或已禁用"));
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("phone", phone)
+               .eq("status", 1);
+        User user = userMapper.selectOne(wrapper);
+        if (user == null) {
+            throw new RuntimeException("用户不存在或已禁用");
+        }
         
         if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new RuntimeException("密码错误");
@@ -178,10 +193,12 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void updateLastLoginTime(String id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("用户不存在"));
+        User user = userMapper.selectById(id);
+        if (user == null) {
+            throw new RuntimeException("用户不存在");
+        }
         user.setLastLoginTime(new Date());
         user.setUpdateTime(new Date());
-        userRepository.save(user);
+        userMapper.updateById(user);
     }
 }

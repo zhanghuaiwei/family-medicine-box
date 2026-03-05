@@ -1,37 +1,33 @@
-package com.medicinebox.user.repository;
+package com.medicinebox.user.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.medicinebox.common.model.User;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-
-import java.util.Optional;
 
 /**
- * 用户Repository接口
+ * 用户Mapper接口
  */
-public interface UserRepository extends JpaRepository<User, String> {
+public interface UserMapper extends BaseMapper<User> {
 
     /**
      * 根据手机号查询用户
      * @param phone 手机号
      * @return 用户信息
      */
-    Optional<User> findByPhone(String phone);
+    User findByPhone(String phone);
 
     /**
      * 根据邮箱查询用户
      * @param email 邮箱
      * @return 用户信息
      */
-    Optional<User> findByEmail(String email);
+    User findByEmail(String email);
 
     /**
      * 根据用户名查询用户
      * @param username 用户名
      * @return 用户信息
      */
-    Optional<User> findByUsername(String username);
+    User findByUsername(String username);
 
     /**
      * 根据手机号和状态查询用户
@@ -39,7 +35,7 @@ public interface UserRepository extends JpaRepository<User, String> {
      * @param status 状态
      * @return 用户信息
      */
-    Optional<User> findByPhoneAndStatus(String phone, Integer status);
+    User findByPhoneAndStatus(String phone, Integer status);
 
     /**
      * 统计用户数量

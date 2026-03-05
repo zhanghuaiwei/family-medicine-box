@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 import java.util.Date;
 
 /**
- * 药品推荐模型
+ * 药品推荐模型类
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

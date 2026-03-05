@@ -1,18 +1,15 @@
 package com.medicinebox.common.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import java.util.Date;
 
 /**
- * 通知记录模型
+ * 通知模型类
  */
 @Data
-public class Notification {
-    /**
-     * 通知ID（UUID）
-     */
-    private String id;
-
+@EqualsAndHashCode(callSuper = true)
+public class Notification extends BaseModel {
     /**
      * 用户ID
      */

@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 import java.util.Date;
 
 /**
- * 报警设置模型
+ * 提醒设置模型类
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

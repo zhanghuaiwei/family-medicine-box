@@ -1,18 +1,15 @@
 package com.medicinebox.common.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import java.util.Date;
 
 /**
- * 库存变动记录模型
+ * 库存历史模型类
  */
 @Data
-public class InventoryHistory {
-    /**
-     * 记录ID（UUID）
-     */
-    private String id;
-
+@EqualsAndHashCode(callSuper = true)
+public class InventoryHistory extends BaseModel {
     /**
      * 用户ID
      */
