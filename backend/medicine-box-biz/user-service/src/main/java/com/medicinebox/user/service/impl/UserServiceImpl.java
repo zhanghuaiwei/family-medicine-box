@@ -160,6 +160,14 @@ public class UserServiceImpl implements UserService {
         return userMapper.selectList(wrapper);
     }
 
+    @Override
+    public com.baomidou.mybatisplus.extension.plugins.pagination.Page<User> getUsersByPage(int page, int size, Integer deleted) {
+        com.baomidou.mybatisplus.extension.plugins.pagination.Page<User> pagination = new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(page, size);
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("deleted", deleted);
+        return userMapper.selectPage(pagination, wrapper);
+    }
+
     /**
      * 用户登录
      * @param phone 手机号

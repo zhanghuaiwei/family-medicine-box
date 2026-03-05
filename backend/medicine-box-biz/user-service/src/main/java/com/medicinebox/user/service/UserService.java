@@ -58,6 +58,15 @@ public interface UserService {
     List<User> getAllUsers(Integer deleted);
 
     /**
+     * 分页查询用户
+     * @param page 页码
+     * @param size 每页大小
+     * @param deleted 删除状态
+     * @return 分页结果
+     */
+    com.baomidou.mybatisplus.extension.plugins.pagination.Page<User> getUsersByPage(int page, int size, Integer deleted);
+
+    /**
      * 用户登录
      * @param phone 手机号
      * @param password 密码

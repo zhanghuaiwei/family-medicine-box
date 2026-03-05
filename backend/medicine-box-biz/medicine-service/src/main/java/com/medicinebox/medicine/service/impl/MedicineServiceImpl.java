@@ -259,6 +259,14 @@ public class MedicineServiceImpl implements MedicineService {
         return medicineMapper.selectList(wrapper);
     }
 
+    @Override
+    public com.baomidou.mybatisplus.extension.plugins.pagination.Page<Medicine> getMedicinesByPage(int page, int size, Integer deleted) {
+        com.baomidou.mybatisplus.extension.plugins.pagination.Page<Medicine> pagination = new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(page, size);
+        QueryWrapper<Medicine> wrapper = new QueryWrapper<>();
+        wrapper.eq("deleted", deleted);
+        return medicineMapper.selectPage(pagination, wrapper);
+    }
+
     /**
      * 根据分类ID查询药品
      * @param categoryId 分类ID

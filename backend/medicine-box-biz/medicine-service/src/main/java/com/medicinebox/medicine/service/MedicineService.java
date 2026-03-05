@@ -95,6 +95,15 @@ public interface MedicineService {
     List<Medicine> getAllMedicines(Integer deleted);
 
     /**
+     * 分页查询药品
+     * @param page 页码
+     * @param size 每页大小
+     * @param deleted 删除状态
+     * @return 分页结果
+     */
+    com.baomidou.mybatisplus.extension.plugins.pagination.Page<Medicine> getMedicinesByPage(int page, int size, Integer deleted);
+
+    /**
      * 根据分类ID查询药品
      * @param categoryId 分类ID
      * @return 药品列表
