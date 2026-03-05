@@ -39,6 +39,7 @@
     </dependencyManagement>
 
     <modules>
+        <module>medicine-box-eureka</module>
         <module>medicine-box-gateway</module>
         <module>medicine-box-biz</module>
         <module>medicine-box-utils</module>
@@ -46,6 +47,10 @@
     </modules>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
