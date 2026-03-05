@@ -39,7 +39,6 @@
     </dependencyManagement>
 
     <modules>
-        <module>medicine-box-eureka</module>
         <module>medicine-box-gateway</module>
         <module>medicine-box-biz</module>
         <module>medicine-box-utils</module>
